@@ -4,3 +4,5 @@ code/**/package.json
 !code/js-intro/**/package.json
 .idea/
 .agenda/
+fe-mobx/.eslintcache
+shopping-list-mobx/.eslintcache

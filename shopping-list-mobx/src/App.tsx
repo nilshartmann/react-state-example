@@ -7,11 +7,31 @@ function App() {
   return (
     <StoreContextProvider>
       <div className="App">
-        <h1>Shopping List</h1>
+        <Header />
         <OrderAndFilter />
         <ShoppingList />
+        <Footer />
       </div>
     </StoreContextProvider>
+  );
+}
+
+const Header = observer(function Header() {
+  console.log("Render Header");
+  const store = useStore();
+  return (
+    <header>
+      <h1>Shopping List</h1>
+      <h2>{store.remainingItems.length} open items</h2>
+    </header>
+  );
+});
+
+function Footer() {
+  return (
+    <footer>
+      <a href="https://react.schule">https://react.schule</a>
+    </footer>
   );
 }
 
@@ -19,7 +39,7 @@ const OrderAndFilter = observer(function OrderAndFilter() {
   console.log("Render OrderAndFilter");
   const store = useStore();
   return (
-    <div className="Container OrderAndFilter">
+    <div className="OrderAndFilter">
       <div>
         <label>
           <input
@@ -60,7 +80,7 @@ const ShoppingList = observer(function ShoppingList() {
         <tr>
           <th>Item</th>
           <th>Shop</th>
-          <th>Done</th>
+          <th style={{ textAlign: "center" }}>Done</th>
         </tr>
       </thead>
       <tbody>
@@ -89,11 +109,11 @@ const ShoppingItem = observer(function ShoppingItem({ item }: ShoppingItemProps)
       <td>
         <select value={item.shop} onChange={(e) => item.updateShop(e.target.value)}>
           <option value="Drugstore">Drugstore</option>
-          <option value="Supermarkt">Supermarket</option>
+          <option value="Supermarket">Supermarket</option>
           <option value="Greengrocer">Greengrocer</option>
         </select>
       </td>
-      <td>
+      <td style={{ textAlign: "center" }}>
         <input type="checkbox" checked={item.done} onChange={() => item.toggleDone()} />
       </td>
     </tr>

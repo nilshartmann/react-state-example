@@ -58,6 +58,13 @@ class ShoppingListStore {
         this.orderBy === "name" ? i1.name.localeCompare(i2.name) : i1.shop.localeCompare(i2.shop)
       );
   }
+
+  get remainingItems() {
+    console.log("compute remainingItems");
+    trace();
+
+    return this.items.filter((i) => !i.done);
+  }
 }
 
 const shoppingListStore = new ShoppingListStore();
@@ -66,9 +73,9 @@ shoppingListStore.addItem("pasta", "Supermarket");
 shoppingListStore.addItem("toothpaste", "Drugstore");
 shoppingListStore.addItem("eggs", "Supermarket");
 shoppingListStore.addItem("butter", "Supermarket", true);
-shoppingListStore.addItem("olive oil", "Supermarket");
+shoppingListStore.addItem("olive oil", "Supermarket", true);
 shoppingListStore.addItem("shower gel", "Drugstore");
-shoppingListStore.addItem("cabbage", "Greengrocer", true);
+shoppingListStore.addItem("cabbage", "Greengrocer");
 shoppingListStore.addItem("onions", "Greengrocer");
 
 export default shoppingListStore;

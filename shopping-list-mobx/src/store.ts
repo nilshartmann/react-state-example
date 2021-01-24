@@ -10,6 +10,23 @@ export type IShoppingItem = {
   updateShop(newShop: string): void;
 };
 
+export function createShoppingItem(name: string, shop: string, done = false): IShoppingItem {
+  return makeAutoObservable({
+    id: nextId(),
+    name,
+    shop,
+    done,
+
+    toggleDone() {
+      this.done = !this.done;
+    },
+
+    updateShop(newShop: string) {
+      this.shop = newShop;
+    },
+  });
+}
+
 class ShoppingListStore {
   items: IShoppingItem[] = [];
   orderBy: "name" | "shop" = "name";
@@ -32,20 +49,7 @@ class ShoppingListStore {
   }
 
   addItem(name: string, shop: string, done = false) {
-    const newItem: IShoppingItem = makeAutoObservable({
-      id: nextId(),
-      name,
-      shop,
-      done,
-
-      toggleDone() {
-        this.done = !this.done;
-      },
-
-      updateShop(newShop: string) {
-        this.shop = newShop;
-      },
-    });
+    const newItem = createShoppingItem(name, shop, done);
     this.items.push(newItem);
   }
 
